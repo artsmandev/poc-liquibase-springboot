@@ -1,4 +1,4 @@
-package dev.artsman.annotation;
+package dev.artsman.poc.liquibase.springboot.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
