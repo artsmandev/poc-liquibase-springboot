@@ -1,16 +1,11 @@
 package dev.artsman;
 
-/**
- * Simple Application class
- */
-class Application {
-	private final String name;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-	Application(String name) {
-		this.name = name;
-	}
-
-	String name() {
-		return this.name;
+@SpringBootApplication
+public class Application {
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
 	}
 }
