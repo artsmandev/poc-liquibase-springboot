@@ -20,17 +20,17 @@ import lombok.EqualsAndHashCode;
 public class PersonEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(columnDefinition = "serial")
+	@Column(name = "id", columnDefinition = "serial")
 	@EqualsAndHashCode.Include
 	private Integer id;
 
-	@Column(nullable = false, length = 100)
+	@Column(name = "first_name", nullable = false, length = 100)
 	private String firstName;
 
-	@Column(nullable = false, length = 100)
+	@Column(name = "last_name", nullable = false, length = 100)
 	private String lastName;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false)
+	@Column(name = "birthday", nullable = false)
 	private LocalDate birthday;
 }

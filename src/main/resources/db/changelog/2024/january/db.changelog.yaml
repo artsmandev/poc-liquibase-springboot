@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      relativeToChangelogFile: true
+      file: 01-create-table-person.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: 02-insert-table-person.yaml
