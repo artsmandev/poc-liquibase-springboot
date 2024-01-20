@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.2</version>
+		<version>3.2.1</version>
 		<relativePath/>
 	</parent>
 	<groupId>dev.artsman</groupId>
@@ -100,6 +100,10 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<testSourceDirectory>${project.basedir}/src/test/java/*/</testSourceDirectory>
@@ -175,6 +179,10 @@
 					<artifactId>sonar-maven-plugin</artifactId>
 					<version>${maven.sonar-plugin.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>org.liquibase</groupId>
+					<artifactId>liquibase-maven-plugin</artifactId>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -238,6 +246,33 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<configuration>
+					<changeLogFile>${project.build.resources[0].directory}/db/changelog/db.changelog-master.yaml</changeLogFile>
+					<diffChangeLogFile>${project.build.resources[0].directory}/db/changelog/${maven.build.timestamp}_changelog.yaml</diffChangeLogFile>
+					<outputChangeLogFile>${project.build.resources[0].directory}/db/changelog/${maven.build.timestamp}_changelog.xml</outputChangeLogFile>
+					<driver>org.postgresql.Driver</driver>
+					<referenceDriver>liquibase.ext.hibernate.database.connection.HibernateDriver</referenceDriver>
+					<url>jdbc:postgresql://localhost:5432/liquibase-db</url>
+					<referenceUrl>hibernate:spring:dev.artsman.poc.liquibase.springboot.entity?dialect=org.hibernate.dialect.PostgreSQLDialect</referenceUrl>
+					<username>postgres</username>
+					<password>postgres</password>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.liquibase.ext</groupId>
+						<artifactId>liquibase-hibernate6</artifactId>
+						<version>4.24.0</version>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.data</groupId>
+						<artifactId>spring-data-jpa</artifactId>
+						<version>3.2.1</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
